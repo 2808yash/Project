@@ -1,0 +1,76 @@
+{
+  "product": [
+    {
+      "id": 1,
+      "product_name": "Lipstick",
+      "description": "Glossy and long lasting lipstick",
+      "price": 350,
+      "thumb": "./images/lipstick.png"
+    },
+    {
+      "id": 2,
+      "product_name": "Brush",
+      "description": "Smooth and soft",
+      "price": 250,
+      "thumb": "./images/brush.png"
+    },
+    {
+      "id": 3,
+      "product_name": "Foundation",
+      "description": "matches your skin colour",
+      "price": 550,
+      "thumb": "./images/foundation.png"
+    },
+    {
+      "id": 4,
+      "product_name": "Mascara",
+      "description": "Non-sticky & long-lasting",
+      "price": 250,
+      "thumb": "./images/mas.png"
+    },
+    {
+      "id": 5,
+      "product_name": "Eye Shadow",
+      "description": "Full of shine and glitter",
+      "price": 350,
+      "thumb": "./images/eye.png"
+    },
+    {
+      "id": 6,
+      "product_name": "Nailpaint",
+      "description": "Glossy & Shiny",
+      "price": 250,
+      "thumb": "./images/nail.png"
+    }
+  ],
+  "user": [
+    {
+      "phone": "9306038879",
+      "email": "2808yash@gmail.com",
+      "username": "Yash",
+      "password": "Yash@1234",
+      "id": 1
+    },
+    {
+      "phone": "1234567890",
+      "email": "admin@gmail.com",
+      "username": "Admin",
+      "password": "Admin@123",
+      "id": 2
+    },
+    {
+      "phone": "8976543459",
+      "email": "demo@gmail.com",
+      "username": "demo",
+      "password": "Demo@1212",
+      "id": 3
+    },
+    {
+      "username": "virtusa",
+      "email": "virtusa@gmail.com",
+      "phone": "8765789045",
+      "password": "Virtusa@12",
+      "id": 4
+    }
+  ]
+}
