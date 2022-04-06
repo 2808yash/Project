@@ -65,12 +65,12 @@ class Login extends Component {
                     if(response.password===this.state.fields.password)
                     {
                         if(response.username==="Admin"){
-                            localStorage.setItem('admin',JSON.stringify(response));
+                            localStorage.setItem('admin',response.id);
                             alert("Login Successful");
                                 window.location='/admin';
                         }
                         else{
-                            localStorage.setItem('login',JSON.stringify(response));
+                            localStorage.setItem('login',response.id);
                         alert("Login Successful");
                             window.location='/';
                         }

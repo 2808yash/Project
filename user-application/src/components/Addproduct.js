@@ -76,16 +76,15 @@ class Addproduct extends Component {
     }
 
     addProduct(){
-        fetch("http://localhost:3000/product", {
+        fetch("http://localhost:8080/product/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(this.state.fields)
-        }).then((response) => {
-            response.json().then((result) => {
+        }).then(() => {
                 alert("Product added successfully");
-            })
+                window.location='/admin';
         })
     }
     render() {

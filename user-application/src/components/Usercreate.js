@@ -123,6 +123,7 @@ class Usercreate extends Component {
             body: JSON.stringify(this.state.fields)
         }).then(() => {
             alert("New User added successfully");
+            window.location='/login';
         })
     }
 

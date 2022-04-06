@@ -21,7 +21,7 @@ class Userlist extends Component {
         })
     }
     delete(id){
-        fetch("http://localhost:8080/user/delete/"+id, {
+        fetch("http://localhost:8080/user/"+id, {
             method: "DELETE",
         }).then(() => {
             alert("User deleted successfully");

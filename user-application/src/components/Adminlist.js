@@ -14,20 +14,20 @@ class Adminlist extends Component {
         this.getData();
     }
     getData(){
-        fetch("http://localhost:3000/product").then((response)=>{
+        fetch("http://localhost:8080/product/getAll").then((response)=>{
          response.json().then((result)=>{
          this.setState({list:result})
 })
         })
     }
     delete(id){
-        fetch("http://localhost:3000/product/"+id, {
+        fetch("http://localhost:8080/product/"+id, {
             method: "DELETE",
-        }).then((response) => {
-            response.json().then((result) => {
+        }).then(() => {
+            
                 alert("Product deleted successfully");
                 this.getData();
-            })
+            
         })
     }
     render() {
@@ -59,7 +59,7 @@ class Adminlist extends Component {
                                <td>{item.product_name}</td>
                                <td>{item.description}</td>
                                <td>{item.price}</td>
-                               <td><Link className="lnk" to="">Edit</Link>&nbsp;<Link className="lnk" to="" onClick={()=>{if (window.confirm('Are you sure you wish to delete this Product?')) this.delete(item.id)}}>Delete</Link></td>
+                               <td><Link className="lnk" to={"/productupdate/"+item.id}>Edit</Link>&nbsp;<Link className="lnk" to="" onClick={()=>{if (window.confirm('Are you sure you wish to delete this Product?')) this.delete(item.id)}}>Delete</Link></td>
                                </tr>
                            </tbody>
                         )

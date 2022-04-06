@@ -7,22 +7,47 @@ class Home extends Component {
         super();
         this.state={
             list:null,
-            quantity:1
+            quantity:1,
+            pname:null,
+            pprice:null,
+            total:null
         }
     }
     componentDidMount(){
         this.getData();
     }
     getData(){
-        fetch("http://localhost:3000/product").then((response)=>{
+        fetch("http://localhost:8080/product/getAll").then((response)=>{
          response.json().then((result)=>{
          this.setState({list:result})
 })
         })
     }
-    tocart(id){
+    tocart(id,name,prc){
         if(localStorage.getItem('login') || localStorage.getItem('admin')){
-            window.location='/cart';
+            
+            
+
+               fetch("http://localhost:8080/cart/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "userid":localStorage.getItem('login'),
+                "product_name":name,
+                "price": prc,
+                "total": this.state.quantity*parseInt(prc),
+                "quantity": this.state.quantity
+            })
+        }).then(() => {
+                alert("Product added to cart successfully");
+                this.setState({quantity:1});
+                window.location='/cart';
+        })
+
+    
+              
         }
         else{
             alert("Please Login to proceed");
@@ -49,7 +74,7 @@ class Home extends Component {
                             <p>{item.description}</p>
                             <p className="price">{item.price}<span> Rs.</span></p>
                             <p>Quantity : <input className="inp" type="number" defaultValue='1' min="1" max="10" onChange={(event) => { this.setState({ quantity: event.target.value }) }}/></p>
-                            <Button variant="success" className="btn" onClick={()=>{this.tocart(item.id)}}>Add to cart</Button>
+                            <Button variant="success" className="btn" onClick={()=>{this.tocart(item.id,item.product_name,item.price)}}>Add to cart</Button>
                         </div>
                     </div>
                         )
