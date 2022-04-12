@@ -7,14 +7,17 @@ class Home extends Component {
         super();
         this.state={
             list:null,
+            cart:null,
             quantity:1,
             pname:null,
             pprice:null,
-            total:null
+            total:null,
+            prevquantity: null
         }
     }
     componentDidMount(){
         this.getData();
+        this.getCart();
     }
     getData(){
         fetch("http://localhost:8080/product/getAll").then((response)=>{
@@ -23,10 +26,50 @@ class Home extends Component {
 })
         })
     }
+
+    getCart(){
+        fetch("http://localhost:8080/cart/getAll/" + localStorage.getItem('login')).then((response) => {
+            response.json().then((result) => {
+                this.setState({ cart: result })
+            })
+        })
+    }
     tocart(id,name,prc){
         if(localStorage.getItem('login') || localStorage.getItem('admin')){
             
-            
+            let alreadyInCart=false;
+            let prevQ=0,cartid=0;
+            this.state.cart.forEach(x=>{
+          if(x.product_name===name){
+              alreadyInCart=true;
+              prevQ=x.quantity;
+              cartid=x.id;
+          }
+            })
+            if(alreadyInCart){
+                fetch("http://localhost:8080/cart/"+cartid, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "userid":localStorage.getItem('login'),
+                        "id": cartid,
+                "product_name":name,
+                "price": prc,
+                "total": (this.state.quantity+prevQ)*parseInt(prc),
+                "quantity": this.state.quantity+prevQ
+                    })
+                }).then((response) => {
+                    alert("Already in cart, Quantity updated !!");
+                    window.location='/cart';
+                })
+            }
+            else{
+                if(this.state.cart.length ===5){
+                    alert("Cart is full");
+                }
+            else{
 
                fetch("http://localhost:8080/cart/add", {
             method: "POST",
@@ -45,8 +88,8 @@ class Home extends Component {
                 this.setState({quantity:1});
                 window.location='/cart';
         })
-
-    
+    }
+}
               
         }
         else{
@@ -75,7 +118,7 @@ class Home extends Component {
                             <p className="price">{item.price}<span> Rs.</span></p>
                             <p>Quantity : <input className="inp" type="number" defaultValue='1' min="1" max="10" onChange={(event) => { this.setState({ quantity: event.target.value }) }}/></p>
                             <Button variant="success" className="btn" onClick={()=>{this.tocart(item.id,item.product_name,item.price)}}>Add to cart</Button>
-                        </div>
+                            </div>
                     </div>
                         )
                     }
@@ -85,7 +128,8 @@ class Home extends Component {
                 <p>Loading...</p>
                 }
                 </Container>
-            </div></>
+            </div>
+            </>
         );
     }
 }

@@ -56,6 +56,15 @@ input:focus {
   border-color: #009879;
   box-shadow: 0 0 10px #719ECE;
 }
+.drop{
+  border:thin solid #009879;
+  
+  width: 170px;
+}
+.drop:focus { 
+  border-color: #009879;
+  box-shadow: 0 0 10px #719ECE;
+}
 .home
 {
   margin-top: 25%;

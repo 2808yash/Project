@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {Table,Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navbarmenu from './Navbarmenu';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  import { faTrash,faEdit } from '@fortawesome/free-solid-svg-icons'
 class Adminlist extends Component {
     constructor()
     {
@@ -59,7 +62,7 @@ class Adminlist extends Component {
                                <td>{item.product_name}</td>
                                <td>{item.description}</td>
                                <td>{item.price}</td>
-                               <td><Link className="lnk" to={"/productupdate/"+item.id}>Edit</Link>&nbsp;<Link className="lnk" to="" onClick={()=>{if (window.confirm('Are you sure you wish to delete this Product?')) this.delete(item.id)}}>Delete</Link></td>
+                               <td><Link className="lnk" to={"/productupdate/"+item.id}><FontAwesomeIcon icon={faEdit} color="orange" /></Link>&nbsp;<Link className="lnk" to="" onClick={()=>{if (window.confirm('Are you sure you wish to delete this Product?')) this.delete(item.id)}}><FontAwesomeIcon icon={faTrash} color="red" /></Link></td>
                                </tr>
                            </tbody>
                         )

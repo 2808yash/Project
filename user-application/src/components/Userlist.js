@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Table,Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Navbarmenu from './Navbarmenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  import { faTrash ,faEdit} from '@fortawesome/free-solid-svg-icons'
 class Userlist extends Component {
     constructor()
     {
@@ -55,7 +57,7 @@ class Userlist extends Component {
                                <td>{item.username}</td>
                                <td>{item.email}</td>
                                <td>{item.phone}</td>
-                               <td><Link className="lnk" to={"/update/"+item.id}>Edit</Link>&nbsp;<Link className="lnk" to="" onClick={()=>{if (window.confirm('Are you sure you wish to delete this?')) this.delete(item.id)}}>Delete</Link></td>
+                               <td><Link className="lnk" to={"/update/"+item.id}><FontAwesomeIcon icon={faEdit} color="orange" /></Link>&nbsp;<Link className="lnk" to="" onClick={()=>{if (window.confirm('Are you sure you wish to delete this?')) this.delete(item.id)}}><FontAwesomeIcon icon={faTrash} color="red" /></Link></td>
                                </tr>
                            </tbody>
                         )
