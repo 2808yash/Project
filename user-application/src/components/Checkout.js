@@ -7,7 +7,11 @@ class Checkout extends Component {
     {
         super();
         this.state={
-            list:null
+            list:null,
+            name: null,
+            phone: null,
+            address:null,
+            payment: "Cash on delivery"
         }
     }
     componentDidMount() {
@@ -26,6 +30,36 @@ class Checkout extends Component {
        
         return total;
     }
+    order(){
+        let orderid= (Math.random() + 1).toString(36).substring(7);
+        this.state.list.forEach(x=>{
+            fetch("http://localhost:8080/orders/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "userid":localStorage.getItem('login'),
+                "order_id": orderid,
+        "product_name":x.product_name,
+        "total": x.total,
+        "quantity": x.quantity,
+        "address": this.state.address,
+        "name": this.state.name,
+        "phone_number": this.state.phone,
+        "payment_status": this.state.payment
+            })
+        })
+              })
+
+              this.state.list.forEach(x=>{
+                fetch("http://localhost:8080/cart/" + x.id, {
+                    method: "DELETE",
+                })
+              })
+              alert("order placed successfully");
+              window.location="/myorders";
+    }
 
     render() {
         return (
@@ -40,9 +74,9 @@ class Checkout extends Component {
                               }}>
                                   <Container>
                                       <br/>
-                   <input type="text" placeholder="Enter your name" /><br/><br/>
-                   <input type="text" placeholder="Enter phone number"/><br/><br/>
-                   <textarea placeholder="Enter your address"/><br/><br/>
+                   <input type="text" placeholder="Enter your name" onChange={(event) => { this.setState({ name: event.target.value }) }}/><br/><br/>
+                   <input type="text" placeholder="Enter phone number" onChange={(event) => { this.setState({ phone: event.target.value }) }}/><br/><br/>
+                   <textarea placeholder="Enter your address" onChange={(event) => { this.setState({ address: event.target.value }) }}/><br/><br/>
                    <label style={{
                                 color: "#009879"
                               }}>
@@ -51,7 +85,7 @@ class Checkout extends Component {
             <option value="cod">Cash On Delivery</option>
           </select>
         </label><br/><br/>
-                   <Button className='button' variant="success">Place Order</Button>
+                   <Button className='button' variant="success" onClick={()=>{this.order()}}>Place Order</Button>
                    </Container>
                 </div>
                 <div  style={{

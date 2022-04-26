@@ -14,6 +14,10 @@ import Addproduct from './components/Addproduct';
 import UserList from './components/Userlist';
 import Productupdate from './components/Productupdate';
 import Checkout from './components/Checkout';
+import Order from './components/Order';
+import Myorders from './components/Myorders';
+import UserReview from './components/UserReview';
+import Adminreview from './components/Adminreview';
 function App() {
   return (
     <div className="App">
@@ -22,6 +26,8 @@ function App() {
           <Route exact path='/' element={< Home />}></Route>
           <Route exact path='/admin' element={<Protected>< Adminlist /></Protected>}></Route>
           <Route exact path='/create' element={< Usercreate />}></Route>
+          <Route exact path='/adminreview/:id' element={< Adminreview />}></Route>
+          <Route exact path="/review/:id" element={<Protected><UserReview /></Protected>}></Route>
           <Route exact path='/search' element={<Protected>< Usersearch /></Protected>}></Route>
           <Route exact path='/login' element={< Login />}></Route>
           <Route exact path='/logout' element={< Logout />}></Route>
@@ -31,6 +37,8 @@ function App() {
           <Route exact path='/update/:id' element={<Userupdate />}></Route>
           <Route exact path='/productupdate/:id' element={<Productupdate />}></Route>
           <Route exact path='/addproduct' element={< Addproduct />}></Route>
+          <Route exact path='/orders' element={< Order />}></Route>
+          <Route exact path='/myorders' element={< Myorders />}></Route>
           <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
       </Router>

@@ -46,7 +46,18 @@ class Navbarmenu extends Component {
                 :
                 ""
               }
-
+{
+                localStorage.getItem('admin')?
+                <Nav.Link><Link className="link" to="/orders">Orders</Link></Nav.Link>
+                :
+                ""
+              }
+              {
+                localStorage.getItem('login')?
+                <Nav.Link><Link className="link" to="/myorders">My Orders</Link></Nav.Link>
+                :
+                ""
+              }
               {
                 localStorage.getItem('login') || localStorage.getItem('admin')?
                 <Nav.Link ><Link className="link" to="/logout">Logout</Link></Nav.Link>

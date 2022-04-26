@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Button,Container} from 'react-bootstrap';
 import Navbarmenu from './Navbarmenu';
+
+import {Link} from 'react-router-dom';
 class Home extends Component {
     constructor()
     {
         super();
         this.state={
+             search : null,
             list:null,
             cart:null,
             quantity:1,
@@ -101,12 +104,36 @@ class Home extends Component {
         
         return (
             <><Navbarmenu/>
-            <div> <Container>      
+           
+            <div> <Container>  
+                <div style={{margin:"2% 0% 3% 65%"}}> 
+                <label style={{fontSize:"20px"}}>SEARCH :  </label>
+                <input name="search-bar"  onChange={(e)=>this.setState({search:e.target.value})} type="text" style={{margin:"2%",borderRadius:"3px"}}/>   
+                
+                </div> 
                 {
                 this.state.list?
                 
                 <div className='main_content'>
                     {
+                        this.state.search ?
+                        this.state.list.filter((e,i)=>e.product_name.toUpperCase() === this.state.search.toUpperCase()).map((item,i)=>
+                        <div className="card" key={item.id}>
+                        <div className="card_img">
+                            <img src={item.thumb} alt="products" />
+                        </div>
+                        <div className="card_header">
+                            <h2>{item.product_name}</h2>
+                            <p>{item.description}</p>
+                            <p className="price">{item.price}<span> Rs.</span></p>
+                            <p>Quantity : <input className="inp" type="number" defaultValue='1' min="1" max="10" onChange={(event) => { this.setState({ quantity: event.target.value }) }}/></p>
+                            <Button variant="success" className="btn" onClick={()=>{this.tocart(item.id,item.product_name,item.price)}}>Add to cart</Button>
+                            <p style={{textDecoration : "none"}}><Link to={`/review/${item.id}`} style={{textDecoration : "none",color:"#009879"}}>Reviews</Link></p>
+                        
+                        </div>
+                        </div>
+                        ) 
+                        :
                         this.state.list.map((item,i)=>
                         <div className="card" key={item.id}>
                         <div className="card_img">
@@ -118,8 +145,9 @@ class Home extends Component {
                             <p className="price">{item.price}<span> Rs.</span></p>
                             <p>Quantity : <input className="inp" type="number" defaultValue='1' min="1" max="10" onChange={(event) => { this.setState({ quantity: event.target.value }) }}/></p>
                             <Button variant="success" className="btn" onClick={()=>{this.tocart(item.id,item.product_name,item.price)}}>Add to cart</Button>
-                            </div>
-                    </div>
+                            <p style={{textDecoration : "none"}}><Link to={`/review/${item.id}`} style={{textDecoration : "none",color:"#009879"}}>Reviews</Link></p>
+                        </div>
+                        </div>
                         )
                     }
                 </div>
